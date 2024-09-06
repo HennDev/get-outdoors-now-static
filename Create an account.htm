@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<!-- saved from url=(0065)Create%20an%20account.htm -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Create an account</title>
+    <link rel="icon" type="image/png" href="./Create an account_files/getoutdoors_150px.jpg">
+	<link href="./Create an account_files/css" rel="stylesheet" type="text/css">
+
+<!--	<link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/ui-lightness/jquery-ui.css" />
+ 	<link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
+
+    <link rel="stylesheet" type="text/css" href="https://code.jquery.com/ui/1.11.4/themes/south-street/jquery-ui.css" />
+    <link rel="stylesheet" href="/css/themes/custom-theme/jquery-ui-1.9.2.custom.css">
+     <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
+-->
+    <link rel="stylesheet" href="./Create an account_files/jquery-ui-1.10.0.custom.css">
+
+    <link rel="stylesheet" href="./Create an account_files/jquery-ui.css">
+    <link rel="stylesheet" href="./Create an account_files/theme.css">
+
+
+    <script type="text/javascript" src="./Create an account_files/jquery.js"></script>
+	<!--<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1/jquery-ui.min.js"></script>-->
+    <script src="./Create an account_files/jquery.min.js"></script>
+
+    <script type="text/javascript" src="./Create an account_files/jquery-ui.min.js"></script>
+
+    <script type="text/javascript" src="./Create an account_files/jquery.tokenize.js"></script>
+
+    <script type="text/javascript" src="./Create an account_files/jquery.validate.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="./Create an account_files/jquery.tokenize.css">
+
+    <link href="./Create an account_files/multiple-select.css" rel="stylesheet">
+
+    <script type="text/javascript" src="./Create an account_files/jquery.validate(1).min.js"></script>
+
+    <script src="./Create an account_files/jquery.multiple.select.js"></script>
+
+    <script type="text/javascript" src="./Create an account_files/jquery.tokenize.js"></script>
+	<link rel="stylesheet" type="text/css" href="./Create an account_files/jquery.tokenize.css">
+	<script type="text/javascript" src="./Create an account_files/jquery.validate(1).min.js"></script>
+    <link href="./Create an account_files/Site.css" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="./Create an account_files/dropdown.css">
+
+        <!-- Bootstrap Core CSS -->
+        <link href="./Create an account_files/bootstrap.min.css" rel="stylesheet">
+
+	<!-- Bootstrap Core CSS -->
+        <link href="./Create an account_files/customBootstrap.css" rel="stylesheet">
+
+    <script type="text/javascript" src="./Create an account_files/cookies.js"></script>
+
+
+    <script src="./Create an account_files/raphael.js"></script>
+    <script src="./Create an account_files/color.jquery.js"></script>
+    <script src="./Create an account_files/jquery.usmap.js"></script>
+
+        <!-- Custom CSS -->
+        <style>
+        body {
+            padding-top: 70px;
+            /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
+        }
+
+
+    </style>
+<script type="text/javascript">
+    $(document).ready(function() {
+
+
+        $.validator.setDefaults({
+            highlight: function(element) {
+                $(element).closest('.form-group').addClass('has-error');
+            },
+            unhighlight: function(element) {
+                $(element).closest('.form-group').removeClass('has-error');
+            },
+            errorElement: 'span',
+            errorClass: 'help-block',
+            errorPlacement: function(error, element) {
+                if(element.parent('.input-group').length) {
+                    error.insertAfter(element.parent());
+                } else {
+                    error.insertAfter(element);
+                }
+            }
+        });
+
+
+        $('#loginButtonSubmit').click(function()
+        {
+            $("#loginForm").validate({
+                rules: {
+                    email: {
+                        required: true,
+                        email: true
+                    },
+                    password: "required"
+                },
+                messages: {
+                    password: "Please enter your email",
+                    password: "Please enter your password"
+                },
+                submitHandler: function(form) {
+                    event.preventDefault();
+
+                    var email=$("#email").val();
+                    var password=$("#password").val();
+                    var dataString = 'username='+email+'&password='+password;
+                    $.ajax({
+                        type: "POST",
+                        url: "/Ajax/ajaxLogin.php",
+                        data: dataString,
+                        cache: false,
+                        beforeSend: function(){ $("#login").val('Connecting...');},
+                        success: function(data){
+
+                            if(data=="1")
+                            {
+                                location.reload();
+                            }
+                            else
+                            {
+                                if(data == -1)
+                                {
+                                    var emailError = "Sorry, your account could not be found. Please try again";
+                                }
+                                else if(data == 0)
+                                {
+                                    var emailError = "Sorry, your account credentials are incorrect try again";
+                                }
+
+                                //Shake animation effect.
+                                var l = 5;
+                                for( var i = 0; i < 10; i++ )
+                                    $( "#box" ).animate( {
+                                        'margin-left': "+=" + ( l = -l ) + 'px',
+                                        'margin-right': "-=" + l + 'px'
+                                    }, 50);
+
+                                $("#loginErrorMsgChild").html(emailError);
+                                $("#loginErrorMsg").show();
+
+                            }
+                        }
+                    });
+                }
+            });
+        });
+
+
+
+        $("#loginModalLink").click(function (event)
+        {
+            event.preventDefault();
+
+
+            $("#loginModal").modal({
+                keyboard: false
+            });
+
+        });
+    });
+
+
+    </script>
+    <link rel="stylesheet" href="./Create an account_files/font-awesome.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+
+<!--</head>
+
+<body ng-app class='bodyclass'>
+/Applications/MAMP/bin/mamp/PersonalProjectsGet%20Outdoors%20Now.htm<div id="container">
+		<header id="topHead">
+			<div id="HeadContainer">
+				<div id="Heading" class="clear">
+					<div id="title">
+						<a href="/Applications/MAMP/bin/mamp/PersonalProjectsGet%20Outdoors%20Now.htm">GetOutdoorsNow</a>
+					</div>
+					<div id="topMenu">
+						<div id="accountDropdown">
+							<ul class="main-navigation">
+								<li>
+									<a href="login.php">login</a> 
+								</li>
+								<li>
+									<a href="createUser.php">sign up</a>
+								</li>
+				
+								<li>
+									<a href="support.php">support</a> 
+								</li>
+								<li>
+									<a href="linkOutfitter.php">Become an Outfitter</a> 
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</header>
+	
+		<div id="content">
+			
+-->
+
+</head>
+
+<body>
+<header>
+    <nav class="navbar navbar-inverse" style="position: absolute;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    z-index: 1001;
+    width: 100%;" role="navigation">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+               <!-- <a class="navbar-brand" href="/Get%20Outdoors%20Now.htm">GetOutdoorsNow</a>-->
+
+    <a class="navbar-brand" href="Get%20Outdoors%20Now.htm">                <img src="./Create an account_files/getoutdoors_72px copy 2 2.png" height="100px" width="auto">
+</a>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+<ul class="nav navbar-nav">
+ 		<li>
+			<!--<a href="/login.php">Login<i class="fa fa-lock fa-fw"></i> </a>-->
+           <a href="/Create%20an%20account.htm#" id="loginModalLink" role="button" data-toggle="modal">Login<i class="fa fa-lock fa-fw"></i> </a>
+        </li>
+
+
+
+        <li class="dropdown">
+            <a href="/Create%20an%20account.htm#" class="dropdown-toggle" data-toggle="dropdown">Sign up <i class="fa fa-user-plus fa-fw"></i> </a>
+
+
+
+
+            <ul class="dropdown-menu">
+                <li>
+                    <a id="editUser" href="Create%20an%20account.htm">Standard Account</a>
+                </li>
+
+                                    <li>
+                        <a href="Outfitters/linkOutfitter.php">Become an Outfitter</a>
+                    </li>
+                                </ul>
+        </li>
+
+
+
+
+
+        <li class="dropdown">
+            <!-- <a href="/viewCart.php"><i class="fa fa-shopping-cart fa-lg"></i> <span id="cartInMenu" class="badge" style="background-color: #FFF; color: #24680C;   font-size: 16px; margin-left: 5px;"></span></a> -->
+            <ul class="dropdown-menu">
+                <li>
+                    <a id="editUser" href="viewCart.php">View Shopping Cart</a>
+                </li>
+            </ul>
+        </li>
+	</ul>
+</div>            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+</header>
+
+
+<!--Login Modal Start-->
+<div class="modal fade " id="loginModal" role="dialog">
+    <div id="login-overlay" class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header" align="center">
+                <img class="img hidden-sm hidden-xs" id="img_logo" src="./Create an account_files/getoutdoors_150px.jpg" height="350px" width="auto">
+                <button type="button" class="close btn btn-outline-danger">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
+      <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"></path>
+    </svg>
+                    Button
+                  </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="well" id="box">
+                            <form id="loginForm" method="POST" action="Create%20an%20account.htm" novalidate="novalidate">
+                                <div class="form-group">
+                                    <label for="email" class="control-label">E-mail</label>
+                                    <input type="text" class="form-control" id="email" name="email" value="" required="" title="Please enter your email" placeholder="example@gmail.com">
+                                    <span class="help-block"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label for="password" class="control-label">Password</label>
+                                    <input type="password" class="form-control" id="password" name="password" value="" required="" title="Please enter your password">
+                                    <span class="help-block"></span>
+                                </div>
+
+                                <div id="loginErrorMsg" class="has-feedback has-error" style="display: none;">
+                                    <label id="loginErrorMsgChild" class="control-label" for="inputError"></label>
+                                </div>
+                                <!--<div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" name="remember" id="remember"> Remember login
+                                    </label>
+                                    <p class="help-block">(if this is a private computer)</p>
+                                </div>-->
+                                <button type="submit" id="loginButtonSubmit" class="btn btn-success btn-success-custom btn-block">Login</button>
+                                <a href="forgot/" class="btn btn-default btn-block">Help to login</a>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="well">
+
+                            <p class="lead">Register now for <span class="text-success">FREE</span></p>
+                            <ul class="list-unstyled" style="line-height: 2">
+                                <li><span class="fa fa-check text-success"></span> Find the best activites</li>
+                                <li><span class="fa fa-check text-success"></span> View upcoming adventures</li>
+                                <li><span class="fa fa-check text-success"></span> Save your favorites</li>
+                                <li><span class="fa fa-check text-success"></span> Fast checkout</li>
+                                <!-- <li><a href="/read-more/"><u>Read more</u></a></li>-->
+                            </ul>
+                            <p>
+                            </p>
+
+                            <div class="row">
+
+                            <div class="col-md-6">
+
+                                <a href="Create%20an%20account.htm" class="btn btn-info">Standard registration</a>
+    </div>
+                            <div class="col-md-6">
+                                <a href="Create%20an%20account.htm?action=NewOutfitter" class="btn btn-info">Outfitter registration</a>
+</div>
+                                </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div></div>
+<!--Login Modal End-->
+
+<div id="wrapper">
+	<div id="fb-root"></div>
+    <!-- Navigation -->
+
+
+<div class="container">
+	<div class="col-md-6 col-md-offset-3 col-sm-6 col-xs-12">
+		<div class="panel panel-default panel-success panel-success-custom .small-Panel">
+			<div class="panel-heading clearfix text-center">
+				<i class="icon-calendar"></i>
+				<h3 class="panel-title"><!--?echo $title?--></h3>
+			</div>
+			<div class="panel-body">
+				
+				
+<form class="form-horizontal row-border" action="Create%20an%20account.htm" method="post">
+					<div class="form-group row "><label class="col-md-5 control-label">E-mail</label><div class="col-md-7"><input required="" name="email" type="email" placeholder="E-mail" value="" class="form-control"></div></div><div class="form-group row "><label class="col-md-5 control-label">Password</label><div class="col-md-7"><input required="" name="password" type="password" placeholder="Password" value="" class="form-control"></div></div><div class="form-group row "><label class="col-md-5 control-label">Confirm Password</label><div class="col-md-7"><input required="" name="password2" type="password" placeholder="Confirm Password" value="" class="form-control"></div></div><div class="form-group row "><label class="col-md-5 control-label">First Name</label><div class="col-md-7"><input required="" name="firstName" type="text" placeholder="First Name" value="" class="form-control"></div></div><div class="form-group row "><label class="col-md-5 control-label">Last Name</label><div class="col-md-7"><input required="" name="lastName" type="text" placeholder="Last Name" value="" class="form-control"></div></div>					<div class="form-group">
+						<div class="col-md-2 col-md-offset-5">
+							<button type="submit" class="btn btn-success btn-success-custom">sign up!</button>
+						</div>
+					</div>
+					<input name="newOutfitter" type="hidden" value="0">    
+				</form>
+				
+				
+
+
+			</div>
+		</div>
+	</div>
+	   </div>
+   <footer style="position: absolute">
+        <nav class="navbar navfooter navbar-inverse" role="navigation" style="margin-bottom: 0px;">
+            <div class="container">
+                <div class="row">
+                    <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-2">
+                        <span class="sr-only">Toggle navigation</span>
+                    </button>
+                </div>
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
+                    <ul class="nav navbar-nav">
+                        <li>
+                            <a href="support.php">Support</a>
+                        </li>
+                        <li>
+                            <a href="Create%20an%20account.htm">Follow Us</a>
+                        </li>
+                        <li>
+                            <a class="hidden-desktop" target="_blank" href="https://www.facebook.com/GetOutdoorsNow/">
+                                <img height="20px" width="auto" src="./Create an account_files/Facebook_logo_(square).png">
+                            </a>
+                        </li>
+                        <li>
+                            <a class="hidden-desktop" target="_blank" href="https://twitter.com/Get_OutdoorsNow">
+                                <img height="20px" width="auto" src="./Create an account_files/twitter.png">
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                    </div>
+
+
+
+                <!-- /.navbar-collapse -->
+
+               </div>
+            </nav>
+    </footer>
+    <script src="./Create an account_files/bootstrap.min.js"></script>
+<script src="./Create an account_files/jquery-ui.js"></script>
+        </div>
+
+
+
+
+
+
+
+
+
+<div id="fpCE_version" style="display:none">14.6.2</div></body></html>
