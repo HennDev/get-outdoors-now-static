@@ -1,0 +1,1 @@
+# get-outdoors-now-static
